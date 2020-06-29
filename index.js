@@ -39,6 +39,9 @@ app.post('/pedido', (req, res) => {
 })
 
 
-app.listen(3000, '127.0.0.1', () => {
-  console.log('Servidor rodando');
+const port = process.env.PORT || 3000;
+const hostname = "127.0.0.1"
+
+app.listen(port, hostname, () => {
+    console.log(`server listen on http://${hostname}:${port}`);
 })
