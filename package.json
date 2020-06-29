@@ -1,0 +1,22 @@
+{
+  "name": "deliverybot",
+  "version": "1.0.0",
+  "description": "Chatbot para pedidos com WhatsApp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "chatbot",
+    "whatsapp",
+    "dialogflow",
+    "converso"
+  ],
+  "author": "Beto Floripa (sacplus.chat@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
