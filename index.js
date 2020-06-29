@@ -5,7 +5,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    res.send("Olá. Funcionando");
+    res.send("Chatbot Delivery! :)");
 })
 
 app.get("/ask", (req, res) => {
