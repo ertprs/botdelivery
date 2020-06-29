@@ -1,27 +1,44 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const app = express();
 
-app.use(bodyParser.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: false })) // for parsing application/x-www-form-urlencoded
+const app = express( );
 
-app.get("/", (req, res) => {
-    res.send("Chatbot Delivery! :)");
+app.use(bodyParser.urlencoded({extended: true}));
+
+
+app.get('/', (req, res) => {
+  res.send("Olá Cópia do projeto");
 })
 
-app.post("/webhook", (req, res) => {
-    console.log("Webhook");
-    console.log("Body", req.body.queryResult);
+app.get('/pergunta', (req, res) => {
+  msg=req.query.pergunta;
+  res.send("você perguntou: " + msg);
+})
+
+app.get('/mensagem/:tipo/:id', (req, res) => {
+  msg=req.params.tipo;
+  cod=req.params.id;
+  res.send("você quer editar o id #" + cod);
+})
+
+app.post('/pedido', (req, res) => {
+  console.log(req);
+  const produto = req.body.produto;
+  const qtd = req.body.quantidade;
+  const pagto = req.body.tipoPagamento;
+  const bebida = req.body.bebida;
+
+  const pedido = {
+    produto,
+    qtd,
+    pagto,
+    bebida
+  }
+
+  res.json(pedido);
 })
 
 
-
-
-
-const port = process.env.PORT || 3000;
-const hostname = "127.0.0.1"
-
-//app.listen(port, err = {
-app.listen(port, hostname, () => {
-    console.log(`server listen on http://${hostname}:${port}`);
+app.listen(3000, '127.0.0.1', () => {
+  console.log('Servidor rodando');
 })
