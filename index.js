@@ -2,20 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: false })) // for parsing application/x-www-form-urlencoded
 
 app.get("/", (req, res) => {
     res.send("Chatbot Delivery! :)");
 })
 
-app.get("/ask", (req, res) => {
-    console.log(req.query);
-    res.send("Rota funcionando Ok!");
-})
-
-app.post("/ask", (req, res) => {
-    console.log(req.body);
-    res.send("mensagem recebida");
+app.post("/webhook", (req, res) => {
+    console.log("Webhook");
+    console.log("Body", req.body.queryResult);
 })
 
 
