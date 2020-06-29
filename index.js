@@ -23,8 +23,9 @@ app.post("/ask", (req, res) => {
 
 
 const port = process.env.PORT || 3000;
+const hostname = "127.0.0.1"
 
-
-app.listen(port, err = {
-    
-});
+//app.listen(port, err = {
+app.listen(port, hostname, () => {
+    console.log(`server listen on http://${hostname}:${port}`);
+})
