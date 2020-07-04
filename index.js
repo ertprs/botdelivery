@@ -1,41 +1,53 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+const Model = require("./model/index.js");
+
 const app = express( );
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json())
 
-
-app.get('/', (req, res) => {
-  res.send("Olá Cópia do projeto");
+app.get("/", (req, res) => {
+    res.send("Chatbot Delivery");
 })
 
-app.get('/pergunta', (req, res) => {
-  msg=req.query.pergunta;
-  res.send("você perguntou: " + msg);
-})
+app.post("/webhook", (req, res) => {
+    const mensagem = req.body.queryResult.queryText;
+    const intencao = req.body.queryResult.intent.displayName;
+    let parameters = null;
+    let responder =""
 
-app.get('/mensagem/:tipo/:id', (req, res) => {
-  msg=req.params.tipo;
-  cod=req.params.id;
-  res.send("você quer editar o id #" + cod);
-})
+/*if (req.body.queryResult.parameters && req.body.queryResult.parameters.nao_vendemos) {
+    reponder = "Poxa, não vendemos" + req.body.queryResult.parameters.nao_vendemos + ". "
+    console.log("responder", responder)
+}*/
 
-app.post('/pedido', (req, res) => {
-  console.log(req);
-  const produto = req.body.produto;
-  const qtd = req.body.quantidade;
-  const pagto = req.body.tipoPagamento;
-  const bebida = req.body.bebida;
+switch(intencao) {
+    case "VerCardapio":
+        resp = Model.verCardapio( mensagem, parametros );
+        break;
+    default:
+        resp = { tipo: "texto", mensagem: "Sinto muito, não entendi o que você quer" }
+}
 
-  const pedido = {
-    produto,
-    qtd,
-    pagto,
-    bebida
-  }
+if (resp.tipo == "text") {
+    const resposta = {
+        "fulfillmentText": "Resposta do Webhook",
+        "fulfillmentMessage": [
+            {
+                "text": {
+                    "text": [
+                        res.mrnsagem
+                    ]
+                }
+            }
+        ],
+        "source": "",
+    }
+}
 
-  res.json(pedido);
+res.send(resposta);
 })
 
 
