@@ -15,8 +15,8 @@ app.get("/", (req, res) => {
 app.post("/webhook", (req, res) => {
     const mensagem = req.body.queryResult.queryText;
     const intencao = req.body.queryResult.intent.displayName;
-    let parameters = null;
-    let responder =""
+    const parametros = null;
+    let responder ="req.body.queryResult.parameters"
 
 /*if (req.body.queryResult.parameters && req.body.queryResult.parameters.nao_vendemos) {
     reponder = "Poxa, não vendemos" + req.body.queryResult.parameters.nao_vendemos + ". "
